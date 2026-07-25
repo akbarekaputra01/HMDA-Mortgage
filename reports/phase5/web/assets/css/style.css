@@ -1,0 +1,492 @@
+/* HMDA Mortgage — Knowledge Discovery Dashboard
+   Design system: "Ledger" — flat, report-like institutional banking aesthetic.
+   No sidebar, no icon nav: numbered horizontal sections + an inline stat strip,
+   hairline-bordered cards (no shadow/blur). Corporate-blue accent on a cool
+   neutral surface -- same structure as before, palette shifted to blue+white. */
+
+:root {
+  --navy-950: #0b1521;
+  --navy-900: #0f1e30;
+  --navy-800: #16293f;
+  --navy-700: #1f3a58;
+  --navy-600: #2c4f77;
+
+  /* Primary accent: corporate blue. */
+  --ink-600: #0b5aa0;
+  --ink-500: #1878c4;
+  --ink-100: #e2eef9;
+  --teal-600: #2f6690;
+  --teal-100: #e6edf4;
+  --amber-600: #93590a;
+  --amber-100: #f8eeda;
+  --red-600: #8f2f2f;
+  --red-100: #f6e7e6;
+  --gold-600: #92701c;
+  --gold-100: #f4edd9;
+
+  --bg: #eef2f7;
+  --surface: #ffffff;
+  --surface-sunken: #f4f7fa;
+  --border: #dbe2ea;
+  --border-strong: #bfcbd8;
+  --text: #10161f;
+  --text-secondary: #445064;
+  --text-muted: #78859a;
+
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --nav-h: 60px;
+  --strip-h: 44px;
+  --radius: 3px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0e15;
+  --surface: #131a24;
+  --surface-sunken: #0f151e;
+  --border: #232f3d;
+  --border-strong: #33455c;
+  --text: #eef1f5;
+  --text-secondary: #aab4c4;
+  --text-muted: #7d899c;
+  --ink-100: rgba(24, 120, 196, 0.2);
+  --teal-100: rgba(47, 102, 144, 0.22);
+  --amber-100: rgba(147, 89, 10, 0.24);
+  --red-100: rgba(143, 47, 47, 0.24);
+  --gold-100: rgba(146, 112, 28, 0.26);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0e15;
+    --surface: #131a24;
+    --surface-sunken: #0f151e;
+    --border: #232f3d;
+    --border-strong: #33455c;
+    --text: #eef1f5;
+    --text-secondary: #aab4c4;
+    --text-muted: #7d899c;
+    --ink-100: rgba(24, 120, 196, 0.2);
+    --teal-100: rgba(47, 102, 144, 0.22);
+    --amber-100: rgba(147, 89, 10, 0.24);
+    --red-100: rgba(143, 47, 47, 0.24);
+    --gold-100: rgba(146, 112, 28, 0.26);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+/* Thin flat page scrollbar instead of the browser's default boxy one (with
+   visible up/down arrow buttons), to match the dashboard's flat design --
+   scrolling itself stays, this only restyles how the bar looks. */
+html { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 20px; border: 2px solid var(--bg); background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); background-clip: padding-box; }
+::-webkit-scrollbar-button { display: none; height: 0; width: 0; }
+/* The horizontal section-nav (Overview/Phase 1-5 tabs) only overflows on narrow
+   viewports -- its own little scrollbar there is the one that looked out of
+   place, so that one specifically stays hidden while it's still swipe/wheel
+   scrollable. */
+.section-nav { scrollbar-width: none; }
+.section-nav::-webkit-scrollbar { width: 0; height: 0; }
+a { color: var(--ink-600); text-decoration: none; }
+img { max-width: 100%; }
+::selection { background: var(--ink-100); }
+
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ================================================================
+   Loading bar — indeterminate sweep, shown while a render that can take
+   noticeably long (e.g. the 100,000-point scatter maps) is in progress.
+================================================================= */
+.loading-bar {
+  position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 999;
+  background: linear-gradient(90deg, transparent, var(--ink-500) 45%, var(--ink-600) 55%, transparent);
+  background-size: 200% 100%;
+  opacity: 0; pointer-events: none; transition: opacity 0.15s ease;
+}
+.loading-bar.active { opacity: 1; animation: loading-sweep 0.9s linear infinite; }
+@keyframes loading-sweep {
+  0% { background-position: 160% 0; }
+  100% { background-position: -60% 0; }
+}
+
+/* ================================================================
+   Masthead — brand + report meta (no icon sidebar)
+================================================================= */
+.masthead {
+  position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border-strong);
+}
+.masthead-top {
+  height: var(--nav-h); display: flex; align-items: center; gap: 16px; padding: 0 26px;
+  border-bottom: 1px solid var(--border);
+}
+.brandmark { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.brandmark .mark {
+  width: 30px; height: 30px; border-radius: 6px; flex: none;
+  background: var(--ink-600);
+  display: grid; place-items: center; color: #fff; font-family: var(--font-mono);
+  font-weight: 700; font-size: 12px; letter-spacing: -0.02em;
+}
+.brandmark .name { font-family: var(--font-display); font-weight: 600; font-size: 15.5px; line-height: 1.15; }
+.brandmark .sub { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; }
+.masthead-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.theme-btn {
+  width: 30px; height: 30px; border-radius: 3px; border: 1px solid var(--border-strong);
+  background: var(--surface); color: var(--text-secondary); cursor: pointer;
+  display: grid; place-items: center; flex: none;
+}
+.theme-btn:hover { background: var(--surface-sunken); }
+.lang-toggle {
+  display: flex; height: 30px; border-radius: 3px; border: 1px solid var(--border-strong);
+  overflow: hidden; flex: none;
+}
+.lang-seg {
+  font: 600 12px var(--font-mono); padding: 0 11px; height: 100%; border: none; cursor: pointer;
+  background: var(--surface); color: var(--text-muted); transition: background 0.12s, color 0.12s;
+}
+.lang-seg + .lang-seg { border-left: 1px solid var(--border-strong); }
+.lang-seg:hover { background: var(--surface-sunken); color: var(--text-secondary); }
+.lang-seg.active { background: var(--ink-600); color: #fff; }
+.lang-seg.active:hover { background: var(--ink-600); }
+
+/* Horizontal section nav — replaces the icon sidebar entirely. */
+.section-nav { display: flex; padding: 0 22px; overflow-x: auto; }
+.section-item {
+  display: flex; align-items: baseline; gap: 8px; padding: 12px 16px; border: none; background: transparent;
+  cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  color: var(--text-muted); font-family: var(--font-body); font-size: 14px;
+}
+.section-item:hover { color: var(--text); }
+.section-item.active { color: var(--ink-600); border-bottom-color: var(--ink-600); font-weight: 600; }
+
+/* Inline ledger stat strip — dense, boxless KPI row (not pill cards). */
+.stat-strip {
+  display: flex; flex-wrap: wrap; gap: 0; padding: 0 22px; background: var(--surface-sunken);
+  border-bottom: 1px solid var(--border); font-family: var(--font-mono);
+}
+.stat-cell {
+  padding: 8px 18px 8px 0; margin-right: 18px; border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; justify-content: center; min-height: var(--strip-h);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell .l { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); }
+.stat-cell .v { font-size: 17px; font-weight: 700; color: var(--text); margin-top: 2px; }
+
+/* ================================================================
+   Main
+================================================================= */
+.main { padding: 28px 26px 70px; max-width: 1360px; margin: 0 auto; min-width: 0; }
+.page-head { margin-bottom: 20px; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-600); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;
+}
+.eyebrow .rule { flex: 1; height: 1px; background: var(--border); }
+.page-title {
+  font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em;
+  font-size: clamp(23px, 2.4vw, 30px); margin: 0; color: var(--text);
+}
+.page-sub { color: var(--text-secondary); max-width: 74ch; margin: 10px 0 0; font-size: 16px; line-height: 1.6; }
+.page-sub b { color: var(--text); font-weight: 600; }
+
+/* ================================================================
+   Filter chips — real, functional multi-select controls
+================================================================= */
+.filter-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px;
+  padding: 13px 16px; margin: 0 0 16px; background: var(--surface-sunken);
+  border: 1px solid var(--border); border-radius: var(--radius);
+}
+.filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.filter-group .fl {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted); margin-right: 2px; white-space: nowrap;
+}
+.chip {
+  font-family: var(--font-mono); font-size: 12px; padding: 5px 11px; border-radius: 20px;
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-secondary);
+  cursor: pointer; white-space: nowrap; transition: background .1s, color .1s, border-color .1s;
+}
+.chip:hover { border-color: var(--text-muted); }
+.chip.on { background: var(--ink-600); border-color: var(--ink-600); color: #fff; font-weight: 600; }
+.chip.on[data-tone="risk"] { background: var(--red-600); border-color: var(--red-600); }
+.chip.on[data-tone="warn"] { background: var(--amber-600); border-color: var(--amber-600); }
+.chip-reset {
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-600); background: none; border: none;
+  cursor: pointer; text-decoration: underline; padding: 0;
+}
+.search-input {
+  font-family: var(--font-mono); font-size: 13px; padding: 6px 10px; border-radius: 20px;
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); width: 200px;
+}
+.search-input:focus { outline: none; border-color: var(--ink-500); }
+/* The native select arrow ignores padding-right and renders flush against the
+   box edge regardless -- appearance:none removes it so a custom chevron can
+   be positioned explicitly, further from the edge than the native one was. */
+select.search-input {
+  cursor: pointer; padding-right: 32px !important;
+  appearance: none; -webkit-appearance: none; -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2378859a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; background-size: 10px 6px;
+}
+.filter-count { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+/* ================================================================
+   Grid & cards — flat hairline, no shadow/blur
+================================================================= */
+.grid { display: grid; gap: 16px; margin-bottom: 16px; min-width: 0; }
+.g-21 { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.g-11 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1200px) { .g-21, .g-11, .g-3, .g-4 { grid-template-columns: minmax(0,1fr); } }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 19px 21px; min-width: 0; overflow: hidden; margin-bottom: 16px;
+}
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 4px; }
+.card h3 { font-family: var(--font-display); font-weight: 600; font-size: 16px; margin: 0; color: var(--text); }
+.badge {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.03em; color: var(--text-muted);
+  border: 1px solid var(--border-strong); border-radius: 3px; padding: 4px 9px; white-space: nowrap;
+}
+.hint { color: var(--text-muted); font-size: 15px; line-height: 1.65; margin: 6px 0 14px; }
+
+.callout {
+  background: var(--navy-900);
+  border-radius: var(--radius); padding: 22px 26px; margin-bottom: 16px; color: #eef1f5;
+  position: relative; overflow: hidden; border-left: 3px solid var(--ink-500);
+}
+/* .callout's background/text color are fixed dark regardless of light/dark theme, but the
+   global ::selection color is tuned for the current theme -- in light mode that's a near-white
+   highlight, which against this box's already-light text is nearly unreadable. Pin the
+   selection color here so it stays legible no matter which theme is active. */
+.callout ::selection { background: rgba(127, 184, 232, 0.4); color: #fff; }
+.callout .q {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #7fb8e8; margin: 0 0 10px;
+}
+.callout .a {
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(18px, 2.1vw, 23px); line-height: 1.5;
+  margin: 0; max-width: 74ch;
+}
+.callout .a b { color: #d9c67e; font-weight: 600; }
+
+/* ---------------- Legend / swatch rows ---------------- */
+.legend-row { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 10px 0 4px; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--text-secondary); }
+.legend-item b.num { font-family: var(--font-mono); color: var(--text); margin-right: -2px; }
+.legend-clickable { cursor: pointer; padding: 3px 7px 3px 4px; margin: -3px -7px -3px -4px; border-radius: 3px; user-select: none; }
+.legend-clickable:hover { background: var(--surface-sunken); color: var(--text); }
+.sw { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+.sw.circle { border-radius: 50%; }
+.sw.ring { background: transparent; border: 1.6px solid currentColor; border-radius: 50%; }
+.sw.sq { border-radius: 2px; }
+.sw.dia { border-radius: 2px; transform: rotate(45deg); width: 9px; height: 9px; margin: 1px; }
+
+/* ---------------- Glossary card (e.g. Phase 4's "how to read the filters") ---------------- */
+.glossary-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted);
+  margin: 4px 0 10px;
+}
+.glossary-row {
+  display: flex; align-items: flex-start; gap: 9px; font-size: 14.5px; line-height: 1.6;
+  color: var(--text-secondary); margin-bottom: 12px;
+}
+.glossary-row .sw { flex: none; margin-top: 6px; }
+.glossary-row b { color: var(--text); }
+/* The label+dash+description are one flex item (not split across several),
+   so wrapped lines flow as a normal paragraph instead of scattering across
+   whatever widths flex happened to give each loose child. */
+.glossary-row > span:last-child { flex: 1 1 auto; min-width: 0; }
+
+/* ---------------- Cluster profile cards ---------------- */
+.cluster-card {
+  background: var(--surface-sunken); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 15px 17px; position: relative; overflow: hidden; border-top: 3px solid var(--border-strong);
+}
+.cluster-card .cc-name { font-family: var(--font-display); font-weight: 600; font-size: 17px; margin-bottom: 2px; }
+.cluster-card .cc-meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+.cc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+.cc-stat .l { font-size: 12.5px; color: var(--text-muted); }
+.cc-stat .v { font-family: var(--font-mono); font-weight: 600; font-size: 15px; }
+.cc-flag {
+  margin-top: 10px; font-size: 12px; padding: 6px 9px; border-radius: 3px;
+  background: var(--amber-100); color: var(--amber-600); line-height: 1.5;
+}
+
+/* ---------------- Signal-matrix heatmap table ---------------- */
+table.matrix { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.matrix th {
+  text-align: left; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-muted); padding: 7px 10px; border-bottom: 1px solid var(--border-strong);
+}
+table.matrix td { border-bottom: 1px solid var(--border); }
+table.matrix td.row-label { padding: 9px 10px; font-family: var(--font-body); font-weight: 600; white-space: nowrap; }
+.matrix-cell { padding: 9px 10px; font-family: var(--font-mono); font-weight: 600; text-align: right; }
+
+/* ---------------- Rule cards ---------------- */
+.rule-card {
+  background: var(--surface-sunken); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 17px; margin-bottom: 10px; position: relative; overflow: hidden; border-left: 3px solid var(--ink-600);
+}
+.rule-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 7px; }
+.rule-no { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); }
+.rule-lift {
+  font-family: var(--font-mono); font-weight: 700; font-size: 13px; color: #fff;
+  background: var(--ink-600); border-radius: 3px; padding: 3px 10px;
+}
+.rule-narr { font-size: 16px; line-height: 1.6; margin: 0 0 9px; color: var(--text); }
+.rule-narr b { color: var(--ink-600); }
+.rule-meter { height: 5px; border-radius: 20px; background: var(--border); overflow: hidden; margin-bottom: 6px; }
+.rule-meter-fill { height: 100%; border-radius: 20px; background: var(--gold-600); }
+.rule-meta { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); }
+.rule-ea { margin-top: 11px; padding-top: 10px; border-top: 1px dashed var(--border-strong); display: flex; flex-direction: column; gap: 6px; }
+.rule-ea-row { display: flex; gap: 9px; align-items: baseline; font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); }
+.rule-ea-tag {
+  flex: none; width: 60px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink-600); font-weight: 600;
+}
+.rule-ea-tag.action { color: var(--amber-600); }
+.rule-ea-tag.ex { color: var(--teal-600); }
+.ex-wrap { overflow-x: auto; margin: 2px 0 2px 69px; }
+.ex-table { font-size: 12px; min-width: 620px; }
+.ex-table th, .ex-table td { padding: 5px 8px; white-space: nowrap; }
+
+/* ---------------- Case cards ---------------- */
+.case {
+  background: var(--surface-sunken); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 15px 17px; position: relative; overflow: hidden; border-top: 3px solid var(--border-strong);
+}
+.case-tag { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; }
+.case-title { font-family: var(--font-display); font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+.case-body { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); }
+.case-record {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 10px; margin-bottom: 10px;
+  padding: 9px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 7px;
+  font-family: var(--font-mono); font-size: 12px;
+}
+.case-record div span { display: block; color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+.case.risk { border-top-color: var(--red-600); } .case.risk .case-title { color: var(--red-600); }
+.case.rare { border-top-color: var(--teal-600); } .case.rare .case-title { color: var(--teal-600); }
+.case.err { border-top-color: var(--amber-600); } .case.err .case-title { color: var(--amber-600); }
+.case[hidden] { display: none; }
+
+/* ---------------- Controls ---------------- */
+.control-row { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; flex-wrap: wrap; }
+.control-row label { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+input[type="range"] { accent-color: var(--ink-600); width: 200px; }
+input[type="range"]:disabled { opacity: 0.4; cursor: not-allowed; }
+.control-readout { font-family: var(--font-mono); font-size: 13px; color: var(--ink-600); font-weight: 600; }
+
+/* ---------------- Tables ---------------- */
+table.data-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+table.data-table th {
+  text-align: left; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-strong);
+  padding: 8px 10px;
+}
+table.data-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+table.data-table tr:last-child td { border-bottom: none; }
+
+/* ---------------- Gallery ---------------- */
+.gallery-item { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface-sunken); }
+.gallery-item img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--border); }
+.gallery-item .cap { padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); }
+
+/* ---------------- Phase owner/goal meta strip ---------------- */
+.phase-meta {
+  margin-top: 12px; padding: 11px 15px; background: var(--surface-sunken); border: 1px solid var(--border);
+  border-left: 3px solid var(--ink-600); border-radius: var(--radius); display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap;
+}
+.phase-meta .owner-tag {
+  flex: none; margin-top: 2px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-600);
+  font-weight: 700; white-space: nowrap;
+}
+/* flex: 1 1 auto + min-width: 0 lets this item shrink and wrap its OWN text
+   within the remaining row space -- without min-width:0 a flex item's default
+   min-width is its unwrapped content width, so at normal card widths this
+   sentence never fits next to the owner-tag and the whole item drops to its
+   own line below it instead of wrapping in place. */
+.phase-meta .goal-text { flex: 1 1 240px; min-width: 0; font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
+
+/* ---------------- Phase 1: sub-tabs within a card ---------------- */
+.p1-subtabs { display: flex; gap: 4px; margin: 4px 0 14px; border-bottom: 1px solid var(--border); }
+.p1-subtab {
+  font-family: var(--font-mono); font-size: 12.5px; padding: 8px 14px; border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.p1-subtab:hover { color: var(--text); }
+.p1-subtab.active { color: var(--ink-600); border-bottom-color: var(--ink-600); font-weight: 600; }
+
+/* ---------------- Scrollable panels for long tables/charts ---------------- */
+.scroll-panel { max-height: 480px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.scroll-panel-table { padding: 0 14px; }
+.scroll-panel table.data-table th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+
+.chip-scroll {
+  display: flex; flex-wrap: wrap; gap: 6px; max-height: 132px; overflow-y: auto; padding: 10px 0;
+  /* Fades the last visible row so a scrollable list reads as "more below", not "cut off". */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 18px), transparent 100%);
+}
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------------- Recommendation list (Phase 5) ---------------- */
+.rec-list { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 11px; }
+.rec-list li { font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+.rec-list li b { color: var(--text); }
+.rec-source {
+  display: inline-block; font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  color: var(--ink-600); background: var(--ink-100); border-radius: 3px; padding: 2px 7px;
+  margin-right: 6px; vertical-align: middle; white-space: nowrap;
+}
+
+/* ---------------- Findings list (Phase 5) ---------------- */
+.finding { display: flex; gap: 13px; padding: 13px 0; border-bottom: 1px dashed var(--border); }
+.finding:last-child { border-bottom: none; }
+.finding .fn { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--ink-600); color: #fff;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+.finding .ft { font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+.finding .ft b { color: var(--text); }
+
+/* ---------------- SVG chart tooltip ---------------- */
+.chart-tooltip {
+  position: fixed; pointer-events: none; z-index: 200; background: var(--navy-900); color: #fff;
+  font-family: var(--font-mono); font-size: 12.5px; padding: 7px 10px; border-radius: 3px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.25); opacity: 0; transition: opacity .08s; max-width: 240px; line-height: 1.5;
+}
+svg text { font-family: var(--font-mono); }
+
+/* ---------------- Footer ---------------- */
+.foot {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 26px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .masthead-top { padding: 0 14px; }
+  .section-nav { padding: 0 8px; }
+  .main { padding: 20px 14px 60px; }
+  .stat-strip { padding: 0 8px; }
+  .stat-cell { padding: 8px 12px 8px 0; margin-right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+[hidden] { display: none !important; }
