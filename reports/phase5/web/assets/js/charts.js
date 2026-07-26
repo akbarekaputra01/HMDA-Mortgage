@@ -741,9 +741,9 @@ function dendrogramChart(svg, ddata, opts) {
     const plotW = w - m.l - m.r;
     const pxPerLeaf = n > 1 ? plotW / (n - 1) : plotW;
     // A rotated mono-digit label's horizontal footprint is close to its own
-    // font-size; back off 15% from the exact px/leaf so adjacent labels keep
+    // font-size; back off 35% from the exact px/leaf so adjacent labels keep
     // a hairline of clearance instead of touching edge-to-edge.
-    const fontSize = Math.max(6, Math.min(10, pxPerLeaf * 0.85));
+    const fontSize = Math.max(5, Math.min(9.5, pxPerLeaf * 0.65));
     const leafLayer = svgEl("g", {});
     ddata.ivl.forEach((label, i) => {
       const lx = sx(leafX(i));
