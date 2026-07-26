@@ -45,7 +45,7 @@
   <!-- ============ OVERVIEW ============ -->
   <section class="tab-panel" id="tab-overview">
     <div class="card" id="exec-summary-card" style="border-left:3px solid var(--ink-600)">
-      <div class="card-head"><h3 data-i18n="ov.exec.title">Executive summary</h3><span class="badge" data-i18n="ov.exec.badge">plain-language, no jargon</span></div>
+      <div class="card-head"><h3 data-i18n="ov.exec.title">Executive summary</h3></div>
       <p class="hint" id="exec-summary-lede" style="font-size:14px;color:var(--text-secondary)"></p>
       <div id="exec-summary-findings"></div>
       <div style="margin-top:14px">
@@ -58,34 +58,30 @@
     <div class="grid g-21">
       <div class="grid g-4" id="ov-kpi-cards" style="margin-bottom:0"></div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="ov.gauge.title">Strictest anomalies that were data artifacts</h3><span class="badge" data-i18n="ov.gauge.badge">all-3-methods tier</span></div>
+        <div class="card-head"><h3 data-i18n="ov.gauge.title">Strictest anomalies that were data artifacts</h3></div>
         <p class="hint" data-i18n="ov.gauge.hint">Of the 228 records every one of IQR, Z-score, and Isolation Forest agreed were anomalous, most weren't real financial extremes — they were the imputed-mean placeholder Phase 1 uses for missing income/property values, re-discovered here as a statistical fingerprint.</p>
         <svg id="chart-artifact-gauge" width="100%" viewBox="0 0 320 210" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="ov.representative.title">One representative result from every phase</h3><span class="badge" data-i18n="ov.representative.badge">jump to any phase for the full picture</span></div>
-      <p class="hint" data-i18n="ov.representative.hint">This dashboard has five phases, each owned by a different role on the project. Below is one real, load-bearing result from each — click a card to open that phase in full.</p>
+      <div class="card-head"><h3 data-i18n="ov.representative.title">One representative result from every phase</h3></div>
       <div class="grid g-3" id="ov-phase-highlights" style="margin-bottom:0"></div>
     </div>
 
     <div class="grid g-11">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="ov.outcome.title">Application outcome distribution</h3><span class="badge" data-i18n="ov.outcome.badge">n = 100,000</span></div>
-        <p class="hint" data-i18n="ov.outcome.hint">What ultimately happens to an application, across all outcome categories reported under HMDA.</p>
+        <div class="card-head"><h3 data-i18n="ov.outcome.title">Application outcome distribution</h3></div>
         <svg id="chart-action-taken" width="100%" viewBox="0 0 560 300" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="ov.denial.title">Denial reason distribution</h3><span class="badge" data-i18n="ov.denial.badge">denied applications</span></div>
-        <p class="hint" data-i18n="ov.denial.hint">Primary stated reason among applications marked "Application denied".</p>
+        <div class="card-head"><h3 data-i18n="ov.denial.title">Denial reason distribution</h3></div>
         <svg id="chart-denial-reason" width="100%" viewBox="0 0 560 300" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="ov.explore.title">Explore the full population</h3><span class="badge" data-i18n="ov.explore.badge">16,080,210 rows — not the 100K sample</span></div>
-      <p class="hint" data-i18n-html="ov.explore.hint">Every chart elsewhere on this dashboard runs on the 100,000-application analysis sample. This one is computed directly over <b>every</b> application in the 2022 file (Phase 1's full streaming pass) — pick an attribute to see its true national distribution.</p>
+      <div class="card-head"><h3 data-i18n="ov.explore.title">Explore the full population</h3></div>
       <div class="filter-bar">
         <div class="filter-group">
           <span class="fl" data-i18n="fl.attribute">Attribute</span>
@@ -106,8 +102,7 @@
     <div class="grid g-4" id="p1-kpis"></div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p1.stats.title">Global statistics computation</h3><span class="badge" data-i18n="p1.stats.badge">all 99 columns · 16,080,210 rows</span></div>
-      <p class="hint" data-i18n="p1.stats.hint">Missing counts, cardinality, and numeric stats computed once in a single out-of-core streaming pass over the full file (Phase 1, Tasks 1–2) — everything below is exact, not sampled.</p>
+      <div class="card-head"><h3 data-i18n="p1.stats.title">Global statistics computation</h3></div>
 
       <div class="p1-subtabs" id="p1-stats-subtabs"></div>
 
@@ -156,7 +151,7 @@
 
       <!-- Numeric stats -->
       <div class="p1-subpanel" id="p1-sub-numeric" hidden>
-        <p class="hint" data-i18n="p1.numeric.hint">Total sum, count, and derived mean/std for the 22 continuous features — computed the same way (running sum / sum-of-squares) across the full 16.08M rows.</p>
+        <p class="hint" data-i18n="p1.numeric.hint"></p>
         <div class="filter-bar">
           <div class="filter-group" style="flex:1 1 220px">
             <input type="text" class="search-input" id="numeric-search" data-i18n-placeholder="p1.search.column" placeholder="search column…" style="width:100%">
@@ -170,7 +165,7 @@
 
       <!-- Continuous distribution + boxplot (Plot 2 + Plot 3) -->
       <div class="p1-subpanel" id="p1-sub-continuous" hidden>
-        <p class="hint" data-i18n="p1.continuous.hint">Exact histogram and quartiles for any of the 22 continuous features, computed from the same full-population value counts as everything else on this tab — not a sampled approximation.</p>
+        <p class="hint" data-i18n="p1.continuous.hint"></p>
         <div class="filter-bar">
           <div class="filter-group" style="flex:1 1 100%">
             <span class="fl" data-i18n="fl.feature">Feature</span>
@@ -179,12 +174,12 @@
         </div>
         <div class="grid g-11" style="margin-bottom:0">
           <div class="card" style="padding:14px 16px">
-            <div class="card-head"><h3 style="font-size:14px" data-i18n="p1.plot2.title">Plot 2 — distribution</h3><span class="badge" id="p1cont-badge" data-i18n="p1.plot2.badge">5th–95th pct.</span></div>
+            <div class="card-head"><h3 style="font-size:14px" data-i18n="p1.plot2.title">Plot 2 — distribution</h3></div>
             <svg id="chart-p1cont-hist" width="100%" viewBox="0 0 460 260" preserveAspectRatio="xMidYMid meet"></svg>
             <p class="hint" id="p1cont-hist-note" style="margin-top:8px"></p>
           </div>
           <div class="card" style="padding:14px 16px">
-            <div class="card-head"><h3 style="font-size:14px" data-i18n="p1.plot3.title">Plot 3 — boxplot</h3><span class="badge" data-i18n="p1.plot3.badge">IQR fences, 1.5×</span></div>
+            <div class="card-head"><h3 style="font-size:14px" data-i18n="p1.plot3.title">Plot 3 — boxplot</h3></div>
             <svg id="chart-p1cont-box" width="100%" viewBox="0 0 460 190" preserveAspectRatio="xMidYMid meet"></svg>
             <p class="hint" id="p1cont-box-note" style="margin-top:8px"></p>
           </div>
@@ -193,11 +188,11 @@
 
       <!-- Feature entropy -->
       <div class="p1-subpanel" id="p1-sub-entropy" hidden>
-        <p class="hint" data-i18n-html="p1.entropy.hint">Shannon entropy of each column's raw, full-population value distribution (16,080,210 rows) — higher means more informative/spread out, near-zero means the column is almost constant. This is computed directly from the same raw value counts as the rest of this tab, so it will not exactly match the notebook's own Task 4 entropy (that runs on the <i>cleaned/label-encoded</i> dataset, after the 34 columns dropped in Task 3 are already gone) — but it agrees on which columns are near-constant, which is what the &lt; 0.5 threshold in Task 4 actually selects on. The notebook's exact processed-dataset entropy (the real numbers Task 4 filtered on) is below.</p>
+        <p class="hint" data-i18n-html="p1.entropy.hint"></p>
         <div class="scroll-panel scroll-panel-table" style="margin-top:10px">
           <table class="data-table" id="entropy-processed-table"></table>
         </div>
-        <p class="hint" style="margin-top:8px" data-i18n-html="p1.entropy.note2">Only the columns Task 4 actually flagged (entropy &lt; 0.5, near-constant) are listed here — the full 65-column processed entropy backs this table but isn't worth a 65-row list when 18 rows are the ones that mattered for a real decision.</p>
+        <p class="hint" style="margin-top:8px" data-i18n-html="p1.entropy.note2"></p>
         <div class="filter-bar">
           <div class="filter-group" style="flex:1 1 220px">
             <input type="text" class="search-input" id="entropy-search" data-i18n-placeholder="p1.search.column" placeholder="search column…" style="width:100%">
@@ -220,16 +215,16 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p1.corr.title">Correlation matrix</h3><span class="badge" data-i18n="p1.corr.badge">real 20×20, top-variance features</span></div>
-      <p class="hint" data-i18n-html="p1.corr.hint">Exact |r| for every pair of the 20 highest-variance processed columns (Phase 1, Task 4) — the same streaming pass over all 16,043,075 rows the notebook's own heatmap plots, accumulating <code>Σx</code>, <code>Σx²</code>, and <code>Σxy</code> for every column pair. Darker = more correlated; the &gt; 0.90 threshold is what Task 4 actually drops on.</p>
+      <div class="card-head"><h3 data-i18n="p1.corr.title">Correlation matrix</h3></div>
+      <p class="hint" data-i18n-html="p1.corr.hint"></p>
       <div class="scroll-panel scroll-panel-table" style="margin-top:10px">
         <table class="matrix" id="chart-correlation-matrix" style="font-size:11px"></table>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p1.cat.title">Categorical distribution explorer</h3><span class="badge" id="p1cat-badge">Plot 1.5</span></div>
-      <p class="hint" data-i18n="p1.cat.hint">Exact value distribution for any categorical column, computed over all 16,080,210 rows — not the top few shown in the notebook's static plots.</p>
+      <div class="card-head"><h3 data-i18n="p1.cat.title">Categorical distribution explorer</h3></div>
+      <p class="hint" data-i18n="p1.cat.hint"></p>
       <div class="filter-bar">
         <div class="filter-group" style="flex:1 1 220px">
           <input type="text" class="search-input" id="p1cat-search" data-i18n-placeholder="p1.search.column" placeholder="search column…" style="width:100%">
@@ -245,8 +240,8 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p1.fs.title">Feature selection outcome</h3><span class="badge" data-i18n="p1.fs.badge">99 → 40 features</span></div>
-      <p class="hint" data-i18n="p1.fs.hint">Every column's fate: kept for phases 2–5, or dropped and why. 34 columns dropped for missing data/high cardinality during cleaning (Task 3); a further 25 dropped for near-zero entropy or |r| &gt; 0.90 correlation (Task 4); 40 remain.</p>
+      <div class="card-head"><h3 data-i18n="p1.fs.title">Feature selection outcome</h3></div>
+      <p class="hint" data-i18n="p1.fs.hint"></p>
       <div class="filter-bar">
         <div class="filter-group">
           <span class="fl" data-i18n="fl.status">Status</span>
@@ -283,21 +278,21 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p2.bubble.title">Segment map — at a glance</h3><span class="badge" data-i18n="p2.bubble.badge">bubble size = segment size</span></div>
-      <p class="hint" data-i18n="p2.bubble.hint">One bubble per segment instead of 100,000 individual points — bubble area is proportional to segment size, position is the segment's median reported income and loan amount. The detailed per-applicant PCA scatter below is the same 4 segments at full resolution.</p>
+      <div class="card-head"><h3 data-i18n="p2.bubble.title">Segment map — at a glance</h3></div>
+      <p class="hint" data-i18n="p2.bubble.hint"></p>
       <svg id="chart-segment-bubble" width="100%" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid meet"></svg>
       <div class="legend-row" id="segment-bubble-legend" style="margin-top:12px"></div>
     </div>
 
     <div class="grid g-21">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p2.map.title">Applicant segments — PCA projection</h3><span class="badge">K-Means, K=4</span></div>
-        <p class="hint" data-i18n="p2.map.hint">Each point is one sampled applicant, colored by assigned segment. Toggle segment chips to isolate a group, and the DBSCAN noise chip to highlight the points density-based clustering found genuinely isolated (not a member of any dense region) — Phase 4's IQR/Z-score/Isolation Forest anomaly flags are a separate, statistical way of finding unusual applicants, filterable on their own tab.</p>
+        <div class="card-head"><h3 data-i18n="p2.map.title">Applicant segments — PCA projection</h3></div>
+        <p class="hint" data-i18n="p2.map.hint"></p>
         <svg id="chart-cluster-map" width="100%" viewBox="0 0 620 440" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend-row" id="cluster-legend"></div>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p2.whyk4.title">Why K=4, not more</h3><span class="badge">DBSCAN + silhouette</span></div>
+        <div class="card-head"><h3 data-i18n="p2.whyk4.title">Why K=4, not more</h3></div>
         <p class="hint" data-i18n="p2.whyk4.hint">Two independent checks show this population is a continuum, not naturally-separated clusters:</p>
         <table class="data-table">
           <tr><td data-i18n="p2.dbscan_mass">DBSCAN dense mass</td><td class="num" data-i18n="p2.dbscan_mass.val">99.4% of applicants, one cluster</td></tr>
@@ -306,13 +301,13 @@
           <tr><td data-i18n="p2.best_sil">Best silhouette (K=2)</td><td class="num">0.133</td></tr>
           <tr><td data-i18n="p2.chosen_sil">Silhouette at chosen K=4</td><td class="num">0.103</td></tr>
         </table>
-        <p class="hint" style="margin-top:12px" data-i18n="p2.whyk4.note">K=4 is chosen for business resolution — a 2-way split is too coarse to act on — not because it is the statistically optimal partition.</p>
+        <p class="hint" style="margin-top:12px" data-i18n="p2.whyk4.note"></p>
       </div>
     </div>
 
     <div class="grid g-21">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p2.elbow.title">Optimal K selection — elbow vs silhouette</h3><span class="badge">K = 2…8, real fit</span></div>
+        <div class="card-head"><h3 data-i18n="p2.elbow.title">Optimal K selection — elbow vs silhouette</h3></div>
         <p class="hint" data-i18n="p2.elbow.hint">Blue = inertia (elbow method, lower is tighter clusters), amber = silhouette score (higher is better-separated). Hover a point for the exact value.</p>
         <svg id="chart-elbow-silhouette" width="100%" viewBox="0 0 620 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend-row">
@@ -322,8 +317,8 @@
         <p class="hint" id="elbow-note" style="margin-top:10px"></p>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p2.kdist.title">DBSCAN parameter selection</h3><span class="badge">k-distance knee — real curve</span></div>
-        <p class="hint" data-i18n-html="p2.kdist.hint">DBSCAN's <code>eps</code> is not guessed — it is read off the "knee" of the k-distance curve (distance from each point to its 74th nearest neighbor, sorted ascending). The dashed vertical/dot marks the knee actually used; the dashed horizontal marks the resulting <code>eps</code>.</p>
+        <div class="card-head"><h3 data-i18n="p2.kdist.title">DBSCAN parameter selection</h3></div>
+        <p class="hint" data-i18n-html="p2.kdist.hint"></p>
         <svg id="chart-kdistance" width="100%" viewBox="0 0 560 260" preserveAspectRatio="xMidYMid meet"></svg>
         <table class="data-table" style="margin-top:10px">
           <tr><td data-i18n="p2.kdist.minsamples">min_samples (2 × 37 dimensions)</td><td class="num">74</td></tr>
@@ -335,8 +330,8 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p2.dendro.title">Hierarchical clustering — Ward vs. Average linkage</h3><span class="badge">real scipy dendrograms</span></div>
-      <p class="hint" data-i18n-html="p2.dendro.hint">Same 10,000-row sub-sample and same <code>truncate_mode='level', p=5</code> as the notebook's own plot — this is the literal link geometry <code>scipy</code>/<code>matplotlib</code> would draw, not a re-derivation. Ward (left) minimizes within-cluster variance and produces more balanced branches; Average (right) is outlier-sensitive and collapses most of the sample into one dominant branch, isolating a few distant points as their own late-merging branches. Hover a link for its merge distance.</p>
+      <div class="card-head"><h3 data-i18n="p2.dendro.title">Hierarchical clustering — Ward vs. Average linkage</h3></div>
+      <p class="hint" data-i18n-html="p2.dendro.hint"></p>
       <div class="grid g-11">
         <div>
           <div class="hint" style="margin-bottom:6px"><b data-i18n="p2.dendro.ward">Ward linkage</b></div>
@@ -350,27 +345,27 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p2.pca3d.title">3D PCA — pairwise projections</h3><span class="badge" id="pca3d-badge">real 3-component fit</span></div>
-      <p class="hint" data-i18n="p2.pca3d.hint">Same 10,000-row PCA sub-sample as the 2D cluster map above, refit with a 3rd component. PC1+PC2 alone explain ~22% of variance and Clusters 1 and 3 visibly overlap in that view; adding PC3 checks whether that overlap persists in every axis pair or is just a 2D projection artifact — it persists here too, which is expected: K-Means clusters in the full 37-dimensional space, not in these 2-3 plotted dimensions, so overlap in any one projection isn't evidence against the clustering itself.</p>
+      <div class="card-head"><h3 data-i18n="p2.pca3d.title">3D PCA — pairwise projections</h3></div>
+      <p class="hint" data-i18n="p2.pca3d.hint"></p>
       <div class="grid g-3" id="pca3d-grid"></div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p2.dbscansplit.title">DBSCAN density structure</h3><span class="badge">99,399 vs. 601</span></div>
-      <p class="hint" data-i18n="p2.dbscansplit.hint">Run at eps=5.7, min_samples=74 on the full 100,000-row sample: almost every applicant falls into a single dense mass, with a small, genuinely isolated remainder.</p>
+      <div class="card-head"><h3 data-i18n="p2.dbscansplit.title">DBSCAN density structure</h3></div>
+      <p class="hint" data-i18n="p2.dbscansplit.hint"></p>
       <svg id="chart-dbscan-split" width="100%" viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid meet"></svg>
     </div>
 
     <div class="grid g-4" id="cluster-cards"></div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p2.signal.title">Segment signal matrix</h3><span class="badge">cross-phase cross-reference</span></div>
+      <div class="card-head"><h3 data-i18n="p2.signal.title">Segment signal matrix</h3></div>
       <p class="hint" data-i18n="p2.signal.hint">Financial medians and data-quality flags side by side — darker cells mark the values worth a second look.</p>
       <div style="overflow-x:auto"><table class="matrix" id="signal-matrix"></table></div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p2.domattr.title">What actually defines each segment</h3><span class="badge" data-i18n="p2.domattr.badge">dominant attributes, real %</span></div>
+      <div class="card-head"><h3 data-i18n="p2.domattr.title">What actually defines each segment</h3></div>
       <p class="hint" data-i18n="p2.domattr.hint">The single most common value for each demographic/loan attribute within each segment — this is what makes a segment a coherent "profile" rather than just four arbitrary buckets of numbers.</p>
       <div class="filter-bar">
         <div class="filter-group">
@@ -394,31 +389,31 @@
     </div>
     <div class="grid g-11">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p3.itemsets.title">Frequent itemsets by size</h3><span class="badge">Apriori, min-support 2%</span></div>
-        <p class="hint" data-i18n="p3.itemsets.hint">Itemset count shrinks fast as size grows — the downward-closure property in action: every subset of a frequent itemset must itself be frequent, so quadruples are rarer combinations built only from already-frequent triples.</p>
+        <div class="card-head"><h3 data-i18n="p3.itemsets.title">Frequent itemsets by size</h3></div>
+        <p class="hint" data-i18n="p3.itemsets.hint"></p>
         <svg id="chart-itemset-size" width="100%" viewBox="0 0 560 190" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p3.supporthist.title">Distribution of rule support</h3><span class="badge">2,000-rule sample</span></div>
-        <p class="hint" data-i18n="p3.supporthist.hint">How common each mined rule's antecedent+consequent combination is across the 100,000-application sample. Most mined rules sit just above the 2% minimum-support floor — that floor is exactly why the itemset counts above shrink so fast at larger sizes.</p>
+        <div class="card-head"><h3 data-i18n="p3.supporthist.title">Distribution of rule support</h3></div>
+        <p class="hint" data-i18n="p3.supporthist.hint"></p>
         <svg id="chart-support-hist" width="100%" viewBox="0 0 460 190" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
     </div>
     <div class="grid g-11">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p3.scatter.title">Support vs. confidence</h3><span class="badge">colored/sized by lift</span></div>
+        <div class="card-head"><h3 data-i18n="p3.scatter.title">Support vs. confidence</h3></div>
         <p class="hint" data-i18n="p3.scatter.hint">Every mined rule (lift ≥ 1.0, confidence ≥ 0.5) plotted as one point. High-lift rules cluster at low support — rare but distinguishing; common rules trend toward lift near 1.</p>
         <svg id="chart-rules-scatter" width="100%" viewBox="0 0 560 420" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p3.network.title">Rule network</h3><span class="badge" id="rule-network-badge">nodes = attribute values</span></div>
+        <div class="card-head"><h3 data-i18n="p3.network.title">Rule network</h3></div>
         <p class="hint" data-i18n="p3.network.hint">Nodes are specific attribute values; edges are documented rules, weighted by lift. Filtering below also dims unrelated nodes here.</p>
         <svg id="chart-rule-network" width="100%" viewBox="0 0 560 420" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p3.rules.title">Top rules, in plain language</h3><span class="badge">evidence + action</span></div>
+      <div class="card-head"><h3 data-i18n="p3.rules.title">Top rules, in plain language</h3></div>
 
       <div class="filter-bar">
         <div class="filter-group">
@@ -470,8 +465,7 @@
 
     <div class="grid g-21">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p4.map.title">Anomaly map</h3><span class="badge" data-i18n="p4.map.badge">n = 100,000</span></div>
-        <p class="hint" data-i18n="p4.map.hint">Point size/color = number of independent methods (IQR, Z-score, Isolation Forest) that flagged the record. Use the tier chips above to isolate a confidence level, or pick which two variables to plot below.</p>
+        <div class="card-head"><h3 data-i18n="p4.map.title">Anomaly map</h3></div>
         <div class="control-row" style="margin:4px 0 10px">
           <span class="fl" data-i18n="fl.axisx">X axis</span>
           <select class="search-input" id="anom-axis-x" style="width:auto;padding:6px 10px"></select>
@@ -481,15 +475,13 @@
         <svg id="chart-anomaly-map" width="100%" viewBox="0 0 620 440" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p4.tierchart.title">Records by confidence tier</h3><span class="badge">log scale</span></div>
-        <p class="hint" data-i18n="p4.tierchart.hint">The 3 detection methods answer different questions (Jaccard overlap 0.04–0.09) — agreement across methods is what makes a flag trustworthy.</p>
+        <div class="card-head"><h3 data-i18n="p4.tierchart.title">Records by confidence tier</h3></div>
         <svg id="chart-tier" width="100%" viewBox="0 0 560 300" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p4.guide.title">How to read the two filters above</h3><span class="badge" data-i18n="p4.guide.badge">glossary</span></div>
-      <p class="hint" data-i18n="p4.guide.hint">Two independent questions about the same record: "how many methods agree" (Confidence tier) and "which method(s) specifically" (Detector method). Combine both — e.g. tier "3 methods" tells you all 3 fired, but only the Detector method chips tell you those 3 are IQR, Z-score, and Isolation Forest, not just a count.</p>
+      <div class="card-head"><h3 data-i18n="p4.guide.title">How to read the two filters above</h3></div>
       <div class="grid g-11" style="margin-bottom:0">
         <div>
           <div class="glossary-label" data-i18n="p4.guide.tierlabel">CONFIDENCE TIER — how many methods agree</div>
@@ -509,45 +501,39 @@
 
     <div class="grid g-11">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p4.iqr.title">Outlier fences by variable</h3><span class="badge">IQR (1.5×) &amp; |z| &gt; 3</span></div>
-        <p class="hint" data-i18n="p4.iqr.hint">The exact statistical fence each method used, and how many of the 100,000 applications fell outside it — computed on raw, un-transformed values so the fences stay business-readable.</p>
+        <div class="card-head"><h3 data-i18n="p4.iqr.title">Outlier fences by variable</h3></div>
         <table class="data-table" id="iqr-table"></table>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p4.dbscanref.title">Cross-checking against DBSCAN noise</h3><span class="badge">baseline 0.6%</span></div>
-        <p class="hint" data-i18n="p4.dbscanref.hint">Each method's flagged set, checked against Phase 2's DBSCAN noise (0.6% of applicants, genuinely isolated by density). A method whose flags land on DBSCAN noise far above 0.6% is finding real structural outliers, not just statistical extremes.</p>
+        <div class="card-head"><h3 data-i18n="p4.dbscanref.title">Cross-checking against DBSCAN noise</h3></div>
         <table class="data-table" id="dbscan-crossref-table"></table>
       </div>
     </div>
 
     <div class="grid g-11">
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p4.enrich.title">Isolation Forest anomalies by segment</h3><span class="badge">enrichment vs. sample average</span></div>
-        <p class="hint" data-i18n="p4.enrich.hint">How over- or under-represented each Phase 2 segment is among Isolation Forest anomalies, relative to its share of the full sample. 1.0× = exactly average; above 1.0× means that segment is riskier/less standardized than its size alone would predict.</p>
+        <div class="card-head"><h3 data-i18n="p4.enrich.title">Isolation Forest anomalies by segment</h3></div>
         <svg id="chart-anomaly-enrichment" width="100%" viewBox="0 0 560 180" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="card">
-        <div class="card-head"><h3 data-i18n="p4.overlap.title">Method agreement (pairwise overlap)</h3><span class="badge">Jaccard similarity</span></div>
-        <p class="hint" data-i18n-html="p4.overlap.hint">How much each pair of detection methods agrees on <i>which</i> records are anomalous — "both" = flagged by both methods, "either" = flagged by at least one, Jaccard = both ÷ either. Low Jaccard means the 3 methods are answering different questions, not being redundant.</p>
+        <div class="card-head"><h3 data-i18n="p4.overlap.title">Method agreement (pairwise overlap)</h3></div>
         <table class="data-table" id="pairwise-overlap-table"></table>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p4.isohist.title">Isolation Forest anomaly score distribution</h3><span class="badge">real continuous scores</span></div>
-      <p class="hint" data-i18n-html="p4.isohist.hint">The continuous score behind the flag/no-flag counts above (lower = more anomalous). Computed over a 3,000-application draw from the same sample, real <code>decision_function()</code> output — not the 0–3 vote count, which only says how many methods agreed, not by how much.</p>
+      <div class="card-head"><h3 data-i18n="p4.isohist.title">Isolation Forest anomaly score distribution</h3></div>
       <svg id="chart-isoforest-hist" width="100%" viewBox="0 0 700 220" preserveAspectRatio="xMidYMid meet"></svg>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p4.imputation.title">The imputation-artifact correction</h3><span class="badge">data-quality finding</span></div>
-      <p class="hint" data-i18n-html="p4.imputation.hint1">Dataset-wide, income is imputed in <b>11.5%</b> of the 100,000-row sample and property value in <b>22.5%</b> — but that rate is far from even across segments (2–87% for income, 4–55% for property value; see the segment signal matrix above), which is exactly why it distorts some segment medians and not others.</p>
-      <p class="hint" style="margin-bottom:0" data-i18n-html="p4.imputation.hint2">71.5% of the 228 records flagged by all 3 methods carried an <b>imputed</b>, not genuinely reported, income or property value — a placeholder inserted for missing data during cleaning. Because <code>expm1(log1p(x)) == x</code> exactly, an imputed value reconstructs to precisely the sample mean, making it a checkable fingerprint. This finding revised two Phase 2 segment profiles: the "Purchased" segment's true median income is $107,000 (not $163,500 as first reported), and the "Withdrawn" segment's true median property value is $435,000 (not $554,000).</p>
+      <div class="card-head"><h3 data-i18n="p4.imputation.title">The imputation-artifact correction</h3></div>
+      <p class="hint" data-i18n-html="p4.imputation.hint1"></p>
+      <p class="hint" style="margin-bottom:0" data-i18n-html="p4.imputation.hint2"></p>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p4.top15.title">Top 15 most robust anomalies</h3><span class="badge">≥2 methods agree, ranked by Isolation Forest score</span></div>
-      <p class="hint" data-i18n="p4.top15.hint">The full ranked table behind the 3 narrative cases below — every one of the 2,635 records flagged by 2+ methods, restricted to the 15 most extreme by Isolation Forest score.</p>
+      <div class="card-head"><h3 data-i18n="p4.top15.title">Top 15 most robust anomalies</h3></div>
       <div class="scroll-panel scroll-panel-table">
         <table class="data-table" id="top15-table"></table>
       </div>
@@ -566,18 +552,17 @@
   <section class="tab-panel" id="tab-phase5" hidden>
     <div class="callout" id="p5-callout"></div>
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p5.findings.title">What wasn't obvious from the raw file</h3><span class="badge" data-i18n="p5.findings.badge">4 documented findings</span></div>
-      <p class="hint" data-i18n-html="p5.findings.hint">The central question this whole analysis answers: what would a pivot table on the raw file <i>not</i> have shown you? Each finding below required combining at least two phases.</p>
+      <div class="card-head"><h3 data-i18n="p5.findings.title">What wasn't obvious from the raw file</h3></div>
       <div id="p5-findings"></div>
     </div>
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p5.recs.title">Recommendations</h3><span class="badge" data-i18n="p5.recs.badge">for lending policy &amp; compliance</span></div>
-      <p class="hint" data-i18n="p5.recs.hint">Not a 1:1 list against the 4 findings above — these are action items from the whole analysis. Recs #1/#2/#5 act directly on Findings #1/#3/#2; #3 and #4 act on patterns from Phase 3's rules and Phase 4's case review that didn't make the 4-finding cut on their own. Finding #4 (no natural cluster structure) is a methodology caveat, not something to act on, which is why there's no 6th recommendation for it.</p>
+      <div class="card-head"><h3 data-i18n="p5.recs.title">Recommendations</h3></div>
+      <p class="hint" data-i18n="p5.recs.hint" style="display:none"></p>
       <ol class="rec-list" id="p5-recs"></ol>
     </div>
     <div class="card">
-      <div class="card-head"><h3 data-i18n="p5.self.title">This dashboard itself</h3><span class="badge">Phase 5, Task 1</span></div>
-      <p class="hint" style="margin-bottom:0" data-i18n="p5.self.hint">Built as a self-contained static page (SVG + vanilla JS, no server, no external dependency) instead of Looker Studio/Dash, so it is fully reproducible from this repository with no account, server, or internet connection required — the same reasoning documented in the notebook.</p>
+      <div class="card-head"><h3 data-i18n="p5.self.title">This dashboard itself</h3></div>
+      <p class="hint" style="margin-bottom:0" data-i18n="p5.self.hint"></p>
     </div>
   </section>
 
@@ -587,10 +572,10 @@
   </div>
 </main>
 
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/charts.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/i18n.js" defer></script>
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/charts.js" defer></script>
+<script src="assets/js/app.js" defer></script>
 <!-- assets/js/vendor/hyparquet.min.js, scatter_data.js, and data-phase{2,3,4}-extra.js are
      lazy-loaded on demand (see ensure*Data() in app.js) -- not needed until their tab opens. -->
 </body>
