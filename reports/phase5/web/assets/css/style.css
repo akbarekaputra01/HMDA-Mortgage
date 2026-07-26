@@ -541,13 +541,13 @@ table.data-table tr:last-child td { border-bottom: none; }
 .finding .ft b { color: var(--text); }
 
 /* ---------------- SVG chart internal interactions ---------------- */
-svg circle { transition: transform 0.15s ease, fill 0.15s ease, opacity 0.15s ease, stroke-width 0.15s ease; transform-origin: center; }
-svg circle:hover { transform: scale(1.4); opacity: 1 !important; stroke: #fff !important; stroke-width: 1.5 !important; cursor: pointer; }
-svg rect[fill]:not([fill="none"]):not([fill="transparent"]) { transition: opacity 0.15s ease, fill 0.15s ease; }
-svg rect[fill]:not([fill="none"]):not([fill="transparent"]):hover { opacity: 0.75; cursor: pointer; }
+svg circle { transition: opacity 0.15s ease, filter 0.15s ease; }
+svg circle:hover { opacity: 0.7 !important; cursor: pointer; }
+svg rect[fill]:not([fill="none"]):not([fill="transparent"]) { transition: opacity 0.15s ease; }
+svg rect[fill]:not([fill="none"]):not([fill="transparent"]):hover { opacity: 0.7 !important; cursor: pointer; }
 /* Exclude gridlines or axis tracks from path hover effects */
-svg path[fill="none"][stroke]:not([stroke="var(--border)"]) { transition: stroke-width 0.15s ease, filter 0.15s ease, opacity 0.15s ease; }
-svg path[fill="none"][stroke]:not([stroke="var(--border)"]):hover { filter: brightness(1.2); opacity: 1 !important; cursor: pointer; stroke-width: 3 !important; }
+svg path[fill="none"][stroke]:not([stroke="var(--border)"]) { transition: opacity 0.15s ease; }
+svg path[fill="none"][stroke]:not([stroke="var(--border)"]):hover { opacity: 0.6 !important; cursor: pointer; }
 
 /* ---------------- SVG chart tooltip ---------------- */
 .chart-tooltip {
